@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/build-a-burger/static/css/main.5bdc0cce.chunk.css",
-    "main.js": "/build-a-burger/static/js/main.30b3755e.chunk.js",
-    "main.js.map": "/build-a-burger/static/js/main.30b3755e.chunk.js.map",
+    "main.js": "/build-a-burger/static/js/main.31fa411e.chunk.js",
+    "main.js.map": "/build-a-burger/static/js/main.31fa411e.chunk.js.map",
     "runtime-main.js": "/build-a-burger/static/js/runtime-main.bae570ad.js",
     "runtime-main.js.map": "/build-a-burger/static/js/runtime-main.bae570ad.js.map",
     "static/js/2.3798b8fe.chunk.js": "/build-a-burger/static/js/2.3798b8fe.chunk.js",
     "static/js/2.3798b8fe.chunk.js.map": "/build-a-burger/static/js/2.3798b8fe.chunk.js.map",
     "index.html": "/build-a-burger/index.html",
-    "precache-manifest.8d802dc846b972f7cad17e7667685fd0.js": "/build-a-burger/precache-manifest.8d802dc846b972f7cad17e7667685fd0.js",
+    "precache-manifest.f29623aa29bba30c3aec0581f38a6ef4.js": "/build-a-burger/precache-manifest.f29623aa29bba30c3aec0581f38a6ef4.js",
     "service-worker.js": "/build-a-burger/service-worker.js",
     "static/css/main.5bdc0cce.chunk.css.map": "/build-a-burger/static/css/main.5bdc0cce.chunk.css.map",
     "static/media/burger-logo.png": "/build-a-burger/static/media/burger-logo.b8503d26.png"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.bae570ad.js",
     "static/js/2.3798b8fe.chunk.js",
     "static/css/main.5bdc0cce.chunk.css",
-    "static/js/main.30b3755e.chunk.js"
+    "static/js/main.31fa411e.chunk.js"
   ]
 }
