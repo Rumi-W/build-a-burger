@@ -1,0 +1,111 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/styles';
+import { Typography, Box, Grid } from '@material-ui/core';
+import OrderItem from './OrderItem';
+import AddButton from '../common/AddButton';
+import DeleteButton from '../common/DeleteButton';
+
+const useStyles = makeStyles(theme => ({
+  box: {
+    margin: theme.spacing(3, 2)
+  },
+  orderTitle: {
+    borderBottom: '1px #cccccc solid',
+    paddingTop: theme.spacing(2)
+  },
+  buttons: {
+    display: 'flex',
+    direction: 'row',
+    justifyContent: 'center',
+    margin: theme.spacing(2, 1)
+  }
+}));
+
+const OrderItems = ({
+  includeAddRemoveButton,
+  order,
+  totalPrice,
+  handleAddOrderItemQuantity,
+  handleRemoveOrderItem
+}) => {
+  const classes = useStyles();
+
+  const renderItem = (key2, key1, i2) => {
+    return (
+      <OrderItem
+        key={key2}
+        orders={order[key1]}
+        orderCategory={key1}
+        orderKey={key2}>
+        {includeAddRemoveButton ? (
+          <AddButton
+            handleAddButtonClick={() =>
+              handleAddOrderItemQuantity(key1, key2)
+            }
+          />
+        ) : null}
+        {includeAddRemoveButton ? (
+          <DeleteButton
+            handleDeleteButtonClick={() =>
+              handleRemoveOrderItem(key1, key2)
+            }
+          />
+        ) : null}
+      </OrderItem>
+    );
+  };
+
+  const renderOrders = () => {
+    let contents = [];
+
+    if (order && Object.keys(order).length > 0) {
+      Object.keys(order).forEach((key1, i) => {
+        if (order[key1] && Object.keys(order[key1]).length > 0) {
+          const item = Object.keys(order[key1]).map((key2, i2) =>
+            renderItem(key2, key1, i2)
+          );
+          contents = [...contents, ...item];
+        }
+      });
+    }
+    return contents;
+  };
+
+  return (
+    <Box className={classes.box}>
+      <Typography align="center" variant="h6">
+        Your Order
+      </Typography>
+      <Typography align="center" variant="subtitle2">
+        {`Total $ ${totalPrice.toFixed(2)}`}
+      </Typography>
+
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="flex-start"
+        spacing={2}
+        className={classes.orderTitle}>
+        <Grid item xs={7} sm={8} md={8}>
+          <Typography display="inline" variant="subtitle2">
+            Item
+          </Typography>
+        </Grid>
+        <Grid item xs={3} sm={3} md={3}>
+          <Typography display="inline" variant="subtitle2">
+            Qty
+          </Typography>
+        </Grid>
+        <Grid item xs={2} sm={1} md={1}>
+          <Typography display="inline" variant="subtitle2">
+            Price
+          </Typography>
+        </Grid>
+      </Grid>
+      {renderOrders()}
+    </Box>
+  );
+};
+
+export default OrderItems;
