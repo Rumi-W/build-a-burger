@@ -18,7 +18,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter basename="/">
+      <BrowserRouter basename="/build-a-burger/">
         <Layout userId={this.props.userId}>
           <Switch>
             <PrivateRoute
