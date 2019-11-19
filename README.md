@@ -1,23 +1,21 @@
-# Build-A-Burger
+## Build-A-Burger
 
 ### Application built on React/Redux
 
-## Usage
+### Demo
 
-## Demo
-
-<a href="https://rumi-w-2018.github.io/smart-brain/">
+<a href="https://Rumi-W.github.io/build-a-burger/">
 Open Application</a>
 <br>
 
-## Install
+### Install
 
     npm install
 
-## Run
+### Run
 
     npm start
 
-## Build
+### Build
 
     npm run build
