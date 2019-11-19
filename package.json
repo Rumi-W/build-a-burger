@@ -19,7 +19,7 @@
     "redux-thunk": "^2.3.0",
     "typescript": "^3.7.2"
   },
-  "homepage": "http://yuribenjamin.github.io/my-app",
+  "homepage": "https://rumi-w.github.io/build-a-burger/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
