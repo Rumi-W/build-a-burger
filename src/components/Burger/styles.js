@@ -1,124 +1,78 @@
-export const ingredientsStyles = {
-  breadBottom: {
-    height: '5vh',
-    width: `80%`,
-    background: 'linear-gradient(#f08e4a, #e27b36)',
-    borderRadius: '0 0 30px 30px',
-    boxShadow: 'inset -15px 0 #c15711',
-    margin: '1% auto'
-  },
+import meatImg from '../../assets/images/meat.png';
+import cheeseImg from '../../assets/images/cheese.png';
+import lettuceImg from '../../assets/images/lettuce.png';
+import baconImg from '../../assets/images/bacon.png';
+import tomatoImg from '../../assets/images/tomato.png';
+import bunTopImg from '../../assets/images/bun-top.png';
+import bunBottomImg from '../../assets/images/bun-bottom.png';
+
+export const ingredientsStyles = theme => ({
   breadTop: {
-    height: '8vh',
+    height: '9vh',
+    minHeight: '70px',
     width: `80%`,
-    background: 'linear-gradient(#f08e4a, #e27b36)',
-    borderRadius: '50% 50% 0 0',
-    boxShadow: 'inset -15px 0 #c15711',
-    margin: '1% auto'
+    backgroundImage: `url(${bunTopImg})`,
+    backgroundSize: '240px',
+    backgroundRepeat: 'no-repeat',
+    margin: '0 auto -6px auto'
   },
-  seeds1: {
-    height: '12%',
-    width: `8%`,
-    position: 'relative',
-    backgroundColor: '#fff',
-    left: '25%',
-    top: '50%',
-    borderRadius: '40%',
-    transform: 'rotate(-20deg)',
-    boxShadow: 'inset -2px -3px #c9c9c',
-    '&::before': {
-      content: "''",
-      display: 'block',
-      height: '100%',
-      width: `100%`,
-      color: '#000',
-      position: 'relative',
-      backgroundColor: '#fff',
-      left: '500%',
-      top: '300%',
-      borderRadius: '40%',
-      transform: 'rotate(-20deg)',
-      boxShadow: 'inset -2px -3px #c9c9c'
-    },
-    '&::after': {
-      content: "''",
-      display: 'block',
-      height: '100%',
-      width: `100%`,
-      color: '#000',
-      position: 'relative',
-      backgroundColor: '#fff',
-      left: '-200%',
-      top: '-200%',
-      borderRadius: '40%',
-      transform: 'rotate(-20deg)',
-      boxShadow: 'inset -2px -3px #c9c9c'
-    }
-  },
-  seeds2: {
-    height: '12%',
-    width: `8%`,
-    position: 'relative',
-    backgroundColor: '#fff',
-    left: '50%',
-    top: '50%',
-    borderRadius: '40%',
-    transform: 'rotate(-20deg)',
-    boxShadow: 'inset -2px -3px #c9c9c',
-    '&::before': {
-      content: "''",
-      display: 'block',
-      height: '100%',
-      width: `100%`,
-      color: '#000',
-      position: 'relative',
-      backgroundColor: '#fff',
-      left: '400%',
-      top: '300%',
-      borderRadius: '40%',
-      transform: 'rotate(-20deg)',
-      boxShadow: 'inset -2px -3px #c9c9c'
-    },
-    '&::after': {
-      content: "''",
-      display: 'block',
-      height: '100%',
-      width: `100%`,
-      color: '#000',
-      position: 'relative',
-      backgroundColor: '#fff',
-      left: '-100%',
-      top: '-400%',
-      borderRadius: '40%',
-      transform: 'rotate(-40deg)',
-      boxShadow: 'inset -2px -3px #c9c9c'
-    }
+  breadBottom: {
+    height: '6vh',
+    minHeight: '60px',
+    width: `80%`,
+    backgroundImage: `url(${bunBottomImg})`,
+    backgroundSize: '240px',
+    backgroundRepeat: 'no-repeat',
+    margin: '-10px auto -10px auto'
   },
   meat: {
-    height: '4vh',
+    height: '6vh',
+    minHeight: '50px',
     width: `80%`,
-    background: 'linear-gradient(#7f3608, #702e05)',
-    borderRadius: '15px',
-    margin: '1% auto'
+    backgroundImage: `url(${meatImg})`,
+    backgroundSize: '240px 50px',
+    backgroundRepeat: 'no-repeat',
+    margin: '0 auto -10px auto',
+    zIndex: 20
   },
   cheese: {
-    height: '2vh',
-    width: `90%`,
-    background: 'linear-gradient(#f4d004, #d6bb22)',
-    borderRadius: '25px',
-    margin: '1% auto'
+    height: '3vh',
+    minHeight: '30px',
+    width: `100%`,
+    backgroundImage: `url(${cheeseImg})`,
+    backgroundSize: '340px 34px',
+    backgroundRepeat: 'no-repeat',
+    margin: '0 auto -8px auto',
+    zIndex: 22
   },
   lettuce: {
-    height: '1.5vh',
+    height: '4vh',
+    minHeight: '34px',
     width: `95%`,
-    background: 'linear-gradient(#228c1d, #91ce50)',
-    borderRadius: '25px',
-    margin: '1% auto'
+    backgroundImage: `url(${lettuceImg})`,
+    backgroundSize: '280px 40px',
+    backgroundRepeat: 'no-repeat',
+    margin: '-10px auto -10px auto',
+    zIndex: 21
   },
   bacon: {
-    height: '1.8vh',
-    width: `80%`,
-    background: 'linear-gradient(#bf3813, #c45e38)',
-    borderRadius: '15px',
-    margin: '1% auto'
+    height: '4vh',
+    minHeight: '30px',
+    width: `95%`,
+    backgroundImage: `url(${baconImg})`,
+    backgroundSize: '280px 40px',
+    backgroundRepeat: 'no-repeat',
+    margin: '0 auto -10px auto',
+    zIndex: 23
+  },
+  tomato: {
+    height: '4vh',
+    minHeight: '30px',
+    width: `76%`,
+    backgroundImage: `url(${tomatoImg})`,
+    backgroundSize: '220px 40px',
+    backgroundRepeat: 'no-repeat',
+    margin: '0 auto -10px auto',
+    zIndex: 24
   }
-};
+});

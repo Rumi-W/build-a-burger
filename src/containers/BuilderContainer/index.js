@@ -39,15 +39,19 @@ const styles = theme => ({
 });
 
 const initState = {
-  orderIngredients: { bacon: 0, cheese: 1, lettuce: 0, meat: 1 }, // order
+  orderIngredients: {
+    bacon: 0,
+    tomato: 1,
+    cheese: 1,
+    lettuce: 1,
+    meat: 1
+  }, // order
   basePrice: 3.0,
   ingredientsTotalPrice: 3.8,
   quantity: 1
 };
 
 class BuilderContainer extends Component {
-  //state = { ...initState };
-
   constructor(props) {
     super(props);
     this.state = { ...initState };
@@ -58,7 +62,7 @@ class BuilderContainer extends Component {
   }
 
   handleAddIngredient = type => {
-    if (this.state.orderIngredients[type] === 3) {
+    if (this.state.orderIngredients[type] === 2) {
       return;
     }
 

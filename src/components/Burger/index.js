@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import Ingredient from './Ingredient';
-// import classes from './Burger.module.css';
 
 const useStyles = makeStyles(theme => ({
   burgerContainer: {

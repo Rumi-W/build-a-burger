@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   FETCH_ORDER_HISTORY_START,
   FETCH_ORDER_HISTORY_SUCCESS,
@@ -18,6 +19,18 @@ const objToArray = obj => {
     totalPrice: obj[key].totalPrice,
     id: key
   }));
+  array.sort((a, b) => {
+    let dayOne = moment(a.orderDateTime);
+    let dayTwo = moment(b.orderDateTime);
+    if (dayTwo.diff(dayOne, 'days') > 1) {
+      return 1;
+    }
+
+    if (dayTwo.diff(dayOne, 'days') < 1) {
+      return -1;
+    }
+    return 0;
+  });
   return array;
 };
 

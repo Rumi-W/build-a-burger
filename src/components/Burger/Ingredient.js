@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { ingredientsStyles } from './styles';
 
-const useStyles = makeStyles(theme => ingredientsStyles);
+const useStyles = makeStyles(theme => ingredientsStyles(theme));
 
 const Ingredient = ({ type }) => {
   let ingredient = null;
@@ -14,15 +14,11 @@ const Ingredient = ({ type }) => {
       ingredient = <div className={classes.breadBottom} />;
       break;
     case 'bread-top':
-      ingredient = (
-        <div className={classes.breadTop}>
-          <div className={classes.seeds1} />
-          <div className={classes.seeds2} />
-        </div>
-      );
+      ingredient = <div className={classes.breadTop} />;
       break;
     case 'meat':
       ingredient = <div className={classes.meat} />;
+      //ingredient = <IngImage />;
       break;
     case 'cheese':
       ingredient = <div className={classes.cheese} />;
@@ -32,6 +28,9 @@ const Ingredient = ({ type }) => {
       break;
     case 'lettuce':
       ingredient = <div className={classes.lettuce} />;
+      break;
+    case 'tomato':
+      ingredient = <div className={classes.tomato} />;
       break;
     default:
       ingredient = null;

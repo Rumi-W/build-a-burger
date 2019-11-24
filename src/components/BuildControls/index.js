@@ -60,7 +60,7 @@ const BuildControls = ({
           variant="subtitle1"
           display="inline"
           style={{ color: '#0c80df', marginLeft: '2px' }}>
-          Select ingredients and quantity. Click &#39;Add to
+          Adjust ingredients and quantity. Click &#39;Add to
           Order&#39;.
         </Typography>
       </div>
@@ -71,7 +71,7 @@ const BuildControls = ({
           label={ingredientsControl[key].label}
           price={ingredientsControl[key].unitPrice}
           removeDisabled={orderIngredients[key] === 0}
-          addDisabled={orderIngredients[key] === 3}
+          addDisabled={orderIngredients[key] === 2}
           handleAddIngredient={() => handleAddIngredient(key)}
           handleRemoveIngredient={() => handleRemoveIngredient(key)}
         />

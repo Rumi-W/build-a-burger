@@ -11,16 +11,18 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     flexWrap: 'nowrap',
     alignItems: 'center',
-    marginBottom: theme.spacing(1)
+    marginBottom: '4px'
   },
   labels: {
     flexDirection: 'row',
     minWidth: theme.spacing(16)
   },
   button: {
-    margin: theme.spacing(1)
+    margin: '6px'
   },
-  icon: {}
+  icon: {
+    fontSize: '20px'
+  }
 }));
 
 const BuildControl = ({
@@ -50,7 +52,7 @@ const BuildControl = ({
         variant="contained"
         color="secondary"
         onClick={() => handleAddIngredient()}>
-        <AddIcon />
+        <AddIcon className={classes.icon} />
       </Button>
       <Button
         className={classes.button}
@@ -59,7 +61,7 @@ const BuildControl = ({
         variant="contained"
         color="secondary"
         onClick={() => handleRemoveIngredient()}>
-        <RemoveIcon />
+        <RemoveIcon className={classes.icon} />
       </Button>
     </div>
   );
