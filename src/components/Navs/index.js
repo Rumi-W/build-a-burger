@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 //import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { MenuList } from '@material-ui/core';
-import BuildIcon from '@material-ui/icons/Widgets';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import PersonIcon from '@material-ui/icons/Person';

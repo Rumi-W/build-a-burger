@@ -2,8 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Box, Grid } from '@material-ui/core';
 import OrderItem from './OrderItem';
-import AddButton from '../common/AddButton';
-import DeleteButton from '../common/DeleteButton';
 import QtyEditButtons from './QtyEditButtons';
 
 const useStyles = makeStyles(theme => ({

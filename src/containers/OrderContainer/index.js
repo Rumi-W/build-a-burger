@@ -52,7 +52,6 @@ class OrderContainer extends Component {
     itemKey,
     currentQuantity
   ) => {
-    console.log('current qty', currentQuantity);
     if (currentQuantity === 1) {
       this.props.removeItem(itemType, itemKey);
     } else {
