@@ -22,11 +22,17 @@ const objToArray = obj => {
   array.sort((a, b) => {
     let dayOne = moment(a.orderDateTime);
     let dayTwo = moment(b.orderDateTime);
-    if (dayTwo.diff(dayOne, 'days') > 1) {
+
+    console.log('one', moment(dayOne).format('MM-DD-YYYY'));
+    console.log('two', moment(dayTwo).format('MM-DD-YYYY'));
+
+    if (dayTwo.diff(dayOne, 'hours') > 1) {
+      console.log(dayTwo.diff(dayOne, 'days'));
       return 1;
     }
 
-    if (dayTwo.diff(dayOne, 'days') < 1) {
+    if (dayTwo.diff(dayOne, 'hours') < 1) {
+      console.log(dayTwo.diff(dayOne, 'days'));
       return -1;
     }
     return 0;
