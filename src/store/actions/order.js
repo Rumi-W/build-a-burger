@@ -4,6 +4,7 @@ import {
   RESET_DRINK_ORDER,
   REMOVE_ITEM,
   ADD_ONE,
+  SUBTRACT_ONE,
   RESET_ORDER,
   SUBMIT_ORDER_START,
   SUBMIT_ORDER_SUCCESS,
@@ -38,6 +39,12 @@ export const removeItem = (itemType, itemKey) => ({
 
 export const addOne = (itemType, itemKey) => ({
   type: ADD_ONE,
+  itemType,
+  itemKey
+});
+
+export const subtractOne = (itemType, itemKey) => ({
+  type: SUBTRACT_ONE,
   itemType,
   itemKey
 });

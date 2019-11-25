@@ -4,10 +4,15 @@ import { Typography, Box, Grid } from '@material-ui/core';
 import OrderItem from './OrderItem';
 import AddButton from '../common/AddButton';
 import DeleteButton from '../common/DeleteButton';
+import QtyEditButtons from './QtyEditButtons';
 
 const useStyles = makeStyles(theme => ({
   box: {
-    margin: theme.spacing(3, 2)
+    margin: theme.spacing(3, 2),
+    padding: theme.spacing(3, 2),
+    [theme.breakpoints.down('xs')]: {
+      padding: 0
+    }
   },
   orderTitle: {
     borderBottom: '1px #cccccc solid',
@@ -26,6 +31,7 @@ const OrderItems = ({
   order,
   totalPrice,
   handleAddOrderItemQuantity,
+  handleReduceOrderItemQuantity,
   handleRemoveOrderItem
 }) => {
   const classes = useStyles();
@@ -38,16 +44,19 @@ const OrderItems = ({
         orderCategory={key1}
         orderKey={key2}>
         {includeAddRemoveButton ? (
-          <AddButton
+          <QtyEditButtons
             handleAddButtonClick={() =>
               handleAddOrderItemQuantity(key1, key2)
             }
-          />
-        ) : null}
-        {includeAddRemoveButton ? (
-          <DeleteButton
             handleDeleteButtonClick={() =>
               handleRemoveOrderItem(key1, key2)
+            }
+            handleReduceButtonClick={() =>
+              handleReduceOrderItemQuantity(
+                key1,
+                key2,
+                order[key1][key2].quantity
+              )
             }
           />
         ) : null}
@@ -58,9 +67,17 @@ const OrderItems = ({
   const renderOrders = () => {
     let contents = [];
 
-    if (order && Object.keys(order).length > 0) {
+    if (
+      Object.prototype.toString.call(order) === '[object Object]' &&
+      Object.keys(order).length > 0
+    ) {
       Object.keys(order).forEach((key1, i) => {
-        if (order[key1] && Object.keys(order[key1]).length > 0) {
+        //key1:burgers/beverages
+        if (
+          Object.prototype.toString.call(order[key1]) ===
+            '[object Object]' &&
+          Object.keys(order[key1]).length > 0
+        ) {
           const item = Object.keys(order[key1]).map((key2, i2) =>
             renderItem(key2, key1, i2)
           );
@@ -87,17 +104,12 @@ const OrderItems = ({
         alignItems="flex-start"
         spacing={2}
         className={classes.orderTitle}>
-        <Grid item xs={7} sm={8} md={8}>
+        <Grid item xs={11}>
           <Typography display="inline" variant="subtitle2">
             Item
           </Typography>
         </Grid>
-        <Grid item xs={3} sm={3} md={3}>
-          <Typography display="inline" variant="subtitle2">
-            Qty
-          </Typography>
-        </Grid>
-        <Grid item xs={2} sm={1} md={1}>
+        <Grid item xs={1}>
           <Typography display="inline" variant="subtitle2">
             Price
           </Typography>

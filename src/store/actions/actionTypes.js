@@ -11,6 +11,7 @@ export const UPDATE_DRINK_ORDER = 'CHANGE_DRINK_ORDER';
 export const RESET_DRINK_ORDER = 'RESET_DRINK_ORDER';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const ADD_ONE = 'ADD_ONE';
+export const SUBTRACT_ONE = 'SUBTRACT_ONE';
 export const RESET_ORDER = 'RESET_ORDER';
 
 export const SUBMIT_ORDER_START = 'SUBMIT_ORDER_START';

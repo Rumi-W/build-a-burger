@@ -17,8 +17,14 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     minWidth: theme.spacing(16)
   },
-  button: {
-    margin: '6px'
+  buttonRoot: {
+    minWidth: '50px',
+    height: '30px',
+    margin: '4px',
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '60px',
+      height: '40px'
+    }
   },
   icon: {
     fontSize: '20px'
@@ -46,20 +52,24 @@ const BuildControl = ({
         </Typography>
       </div>
       <Button
-        className={classes.button}
         disabled={addDisabled}
         size="small"
         variant="contained"
         color="secondary"
+        classes={{
+          root: classes.buttonRoot
+        }}
         onClick={() => handleAddIngredient()}>
         <AddIcon className={classes.icon} />
       </Button>
       <Button
-        className={classes.button}
         disabled={removeDisabled}
         size="small"
         variant="contained"
         color="secondary"
+        classes={{
+          root: classes.buttonRoot
+        }}
         onClick={() => handleRemoveIngredient()}>
         <RemoveIcon className={classes.icon} />
       </Button>

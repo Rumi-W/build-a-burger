@@ -4,6 +4,7 @@ import {
   RESET_DRINK_ORDER,
   REMOVE_ITEM,
   ADD_ONE,
+  SUBTRACT_ONE,
   RESET_ORDER,
   SUBMIT_ORDER_START,
   SUBMIT_ORDER_SUCCESS,
@@ -13,7 +14,8 @@ import {
   addBurger,
   updateDrinkOrder,
   removeItem,
-  addOne
+  addOne,
+  subtractOne
 } from '../helpers/orderReducerHelper';
 
 const initState = {
@@ -43,6 +45,9 @@ export default (state = initState, action = {}) => {
 
     case ADD_ONE:
       return addOne(state, action);
+
+    case SUBTRACT_ONE:
+      return subtractOne(state, action);
 
     case RESET_ORDER:
       return { ...initState };

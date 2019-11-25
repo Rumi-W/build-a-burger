@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tooltip, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import Wrapper from '../../hoc/Wrapper';
 
 const useStyles = makeStyles(theme => ({
@@ -13,23 +13,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AddButton = ({ handleAddButtonClick }) => {
+const SubtractButton = ({ handleReduceButtonClick }) => {
   const classes = useStyles();
   return (
     <Wrapper>
-      <Tooltip title="Add" aria-label="add">
+      <Tooltip title="Reduce" aria-label="reduce">
         <Button
-          aria-label="add"
+          aria-label="reduce"
           size="small"
           color="primary"
           variant="outlined"
-          onClick={handleAddButtonClick}
+          onClick={handleReduceButtonClick}
           classes={{ root: classes.root, label: classes.label }}>
-          <AddIcon fontSize="small" />
+          <RemoveIcon fontSize="small" />
         </Button>
       </Tooltip>
     </Wrapper>
   );
 };
 
-export default AddButton;
+export default SubtractButton;

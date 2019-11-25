@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { MenuList } from '@material-ui/core';
 import BuildIcon from '@material-ui/icons/Widgets';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
+import ViewListIcon from '@material-ui/icons/ViewList';
 import PersonIcon from '@material-ui/icons/Person';
 import NavItem from './NavItem';
 import NavItemAuth from './NavItemAuth';
@@ -23,13 +24,13 @@ const Navs = ({ userId, children }) => {
 
   const navOptions = [
     {
-      navMenuIcon: <BuildIcon fontSize="default" />,
+      navMenuIcon: <FastfoodIcon fontSize="default" />,
       navMenuText: 'Build New',
       tooltipText: 'Build new order',
       navLink: '/'
     },
     {
-      navMenuIcon: <FastfoodIcon fontSize="default" />,
+      navMenuIcon: <ViewListIcon fontSize="default" />,
       navMenuText: 'Order History',
       tooltipText: 'Order history',
       navLink: '/orders'

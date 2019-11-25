@@ -8,7 +8,12 @@ import BuilderContainer from '../BuilderContainer';
 import OrderControls from '../../components/Order/OrderControls';
 import OrderItems from '../../components/Order/OrderItems';
 import Beverages from '../Beverages';
-import { removeItem, addOne, resetOrder } from '../../store/actions';
+import {
+  removeItem,
+  addOne,
+  subtractOne,
+  resetOrder
+} from '../../store/actions';
 
 const styles = theme => ({
   buttons: {
@@ -40,6 +45,19 @@ class OrderContainer extends Component {
 
   handleAddOrderItemQuantity = (itemType, itemKey) => {
     this.props.addOne(itemType, itemKey);
+  };
+
+  handleReduceOrderItemQuantity = (
+    itemType,
+    itemKey,
+    currentQuantity
+  ) => {
+    console.log('current qty', currentQuantity);
+    if (currentQuantity === 1) {
+      this.props.removeItem(itemType, itemKey);
+    } else {
+      this.props.subtractOne(itemType, itemKey);
+    }
   };
 
   handleCheckout = key => {
@@ -97,6 +115,9 @@ class OrderContainer extends Component {
                   handleAddOrderItemQuantity={
                     this.handleAddOrderItemQuantity
                   }
+                  handleReduceOrderItemQuantity={
+                    this.handleReduceOrderItemQuantity
+                  }
                   handleRemoveOrderItem={this.handleRemoveOrderItem}
                 />
               </OrderControls>
@@ -130,5 +151,10 @@ const mapStateToProps = ({ order, auth }) => {
 export default compose(
   withRouter,
   withStyles(styles),
-  connect(mapStateToProps, { removeItem, addOne, resetOrder })
+  connect(mapStateToProps, {
+    removeItem,
+    addOne,
+    resetOrder,
+    subtractOne
+  })
 )(OrderContainer);

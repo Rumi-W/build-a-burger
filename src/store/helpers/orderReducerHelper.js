@@ -124,3 +124,30 @@ export const addOne = (state, action) => {
     totalPrice: updatedTotalPrice
   };
 };
+
+export const subtractOne = (state, action) => {
+  const { itemType, itemKey } = action;
+  let orderToUpdate = { ...state.order };
+  let subOrderToUpdate = { ...orderToUpdate[itemType] }; // drink orders
+
+  if (
+    subOrderToUpdate &&
+    Object.prototype.hasOwnProperty.call(subOrderToUpdate, itemKey)
+  ) {
+    if (subOrderToUpdate[itemKey].quantity === 0) {
+      return { ...state };
+    }
+    const newQty = subOrderToUpdate[itemKey].quantity - 1;
+    subOrderToUpdate[itemKey].quantity = newQty;
+    subOrderToUpdate[itemKey].priceToPay =
+      newQty * subOrderToUpdate[itemKey].unitPrice;
+  }
+  orderToUpdate = { ...orderToUpdate, [itemType]: subOrderToUpdate };
+  const updatedTotalPrice = calcTotalPrice(orderToUpdate);
+
+  return {
+    ...state,
+    order: { ...orderToUpdate },
+    totalPrice: updatedTotalPrice
+  };
+};

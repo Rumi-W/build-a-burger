@@ -27,7 +27,7 @@ import {
 
 const styles = theme => ({
   paper: {
-    paddingBottom: theme.spacing(2)
+    paddingBottom: theme.spacing(4)
   },
   input: {
     padding: 0,

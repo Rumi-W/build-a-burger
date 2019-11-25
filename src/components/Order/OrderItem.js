@@ -23,20 +23,18 @@ const OrderItem = ({ orders, orderKey, orderCategory, children }) => {
       direction="row"
       alignItems="flex-start"
       spacing={2}>
-      <Grid item xs={7} sm={8} md={8}>
+      <Grid item xs={11}>
         <Typography display="inline" variant="subtitle1">
           {orders[orderKey].item}{' '}
         </Typography>
-      </Grid>
-      <Grid item xs={3} sm={3} md={3}>
         <div className={classes.quantity}>
           <Typography display="inline" variant="subtitle1">
-            {orders[orderKey].quantity}
+            Quantity: {orders[orderKey].quantity}
           </Typography>
           {children}
         </div>
       </Grid>
-      <Grid item xs={2} sm={1} md={1} style={{ textAlign: 'right' }}>
+      <Grid item xs={1} style={{ textAlign: 'right' }}>
         <Typography display="inline" variant="subtitle1">
           ${orders[orderKey].priceToPay.toFixed(2)}
         </Typography>

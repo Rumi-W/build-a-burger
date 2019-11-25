@@ -10,6 +10,7 @@ export const ingredientsStyles = theme => ({
   breadTop: {
     height: '9vh',
     minHeight: '70px',
+    maxHeight: '75px',
     width: `80%`,
     backgroundImage: `url(${bunTopImg})`,
     backgroundSize: '240px',
@@ -38,6 +39,7 @@ export const ingredientsStyles = theme => ({
   cheese: {
     height: '3vh',
     minHeight: '30px',
+    maxHeight: '34px',
     width: `100%`,
     backgroundImage: `url(${cheeseImg})`,
     backgroundSize: '340px 34px',
@@ -58,6 +60,7 @@ export const ingredientsStyles = theme => ({
   bacon: {
     height: '4vh',
     minHeight: '30px',
+    maxHeight: '40px',
     width: `95%`,
     backgroundImage: `url(${baconImg})`,
     backgroundSize: '280px 40px',
@@ -68,6 +71,7 @@ export const ingredientsStyles = theme => ({
   tomato: {
     height: '4vh',
     minHeight: '30px',
+    maxHeight: '40px',
     width: `76%`,
     backgroundImage: `url(${tomatoImg})`,
     backgroundSize: '220px 40px',
