@@ -6,10 +6,12 @@ import Wrapper from '../../hoc/Wrapper';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minWidth: '10px'
+    minWidth: '40px',
+    minHeight: '40px',
+    margin: '2px'
   },
   label: {
-    width: '10px'
+    width: '12px'
   }
 }));
 
@@ -21,7 +23,6 @@ const SubtractButton = ({ handleReduceButtonClick }) => {
         <Button
           aria-label="reduce"
           size="small"
-          color="primary"
           variant="outlined"
           onClick={handleReduceButtonClick}
           classes={{ root: classes.root, label: classes.label }}>

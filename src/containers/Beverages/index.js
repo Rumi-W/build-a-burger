@@ -8,7 +8,7 @@ import BeverageSize from '../../components/Beverage/BeverageSize';
 import withErrorHandler from '../../hoc/withErrorHandler';
 import Spinner from '../../components/common/Spinner';
 import {
-  updateDrinkOrder,
+  updateOrder,
   fetchDrinkMenu,
   resetDrinkOrder
 } from '../../store/actions';
@@ -40,7 +40,7 @@ class Beverages extends Component {
   }
 
   handleOrderChange = (itemType, itemKey, orderObj) => {
-    this.props.updateDrinkOrder(itemType, itemKey, orderObj);
+    this.props.updateOrder(itemType, itemKey, orderObj);
   };
 
   renderMenu = () => {
@@ -121,7 +121,7 @@ const mapStateToProps = ({ order, drinkMenu }) => {
 const enhance = compose(
   withStyles(styles),
   connect(mapStateToProps, {
-    updateDrinkOrder,
+    updateOrder,
     fetchDrinkMenu,
     resetDrinkOrder
   })

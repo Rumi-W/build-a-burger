@@ -33,7 +33,11 @@ const OrderItems = ({ isEditable, order, totalPrice, ...rest }) => {
         key={key2}
         orders={order[key1]}
         orderCategory={key1}
-        orderKey={key2}>
+        orderKey={key2}
+        isItemEditable={isEditable && key1 === 'burgers'}
+        handleEditButtonClick={() =>
+          rest.handleModifyBurgerItem(key1, key2)
+        }>
         {isEditable ? (
           <QtyEditButtons
             isBurger={key1 === 'burgers'}
@@ -49,9 +53,6 @@ const OrderItems = ({ isEditable, order, totalPrice, ...rest }) => {
                 key2,
                 order[key1][key2].quantity
               )
-            }
-            handleEditButtonClick={() =>
-              rest.handleModifyBurgerItem(key1, key2)
             }
           />
         ) : null}

@@ -6,8 +6,7 @@ import Wrapper from '../../hoc/Wrapper';
 
 const useStyles = makeStyles(theme => ({
   iconBtn: {
-    margin: 0
-    //backgroundColor: 'blue'
+    marginLeft: '2px'
   }
 }));
 
@@ -19,10 +18,10 @@ const DeleteButton = ({ handleDeleteButtonClick }) => {
         <IconButton
           aria-label="delete"
           size="small"
-          color="primary"
+          //color="primary"
           className={classes.iconBtn}
           onClick={handleDeleteButtonClick}>
-          <DeleteIcon fontSize="small" />
+          <DeleteIcon fontSize="large" />
         </IconButton>
       </Tooltip>
     </Wrapper>

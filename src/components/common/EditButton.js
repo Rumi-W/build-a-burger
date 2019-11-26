@@ -1,15 +1,12 @@
 import React from 'react';
-import { Tooltip, Button } from '@material-ui/core';
+import { Tooltip, Button, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import Wrapper from '../../hoc/Wrapper';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    minWidth: '10px'
-  },
-  label: {
-    width: '10px'
+  iconBtn: {
+    marginLeft: '4px'
   }
 }));
 
@@ -18,15 +15,14 @@ const EditButton = ({ handleEditButtonClick }) => {
   return (
     <Wrapper>
       <Tooltip title="Modify" aria-label="modify">
-        <Button
-          aria-label="modify"
+        <IconButton
+          aria-label="delete"
           size="small"
           color="primary"
-          variant="outlined"
-          onClick={handleEditButtonClick}
-          classes={{ root: classes.root, label: classes.label }}>
-          <EditIcon fontSize="small" />
-        </Button>
+          className={classes.iconBtn}
+          onClick={handleEditButtonClick}>
+          <EditIcon fontSize="large" />
+        </IconButton>
       </Tooltip>
     </Wrapper>
   );

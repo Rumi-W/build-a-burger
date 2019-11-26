@@ -12,7 +12,8 @@ import {
   removeItem,
   addOne,
   subtractOne,
-  resetOrder
+  resetOrder,
+  copyBurgerOrderIngredients
 } from '../../store/actions';
 
 const styles = theme => ({
@@ -48,7 +49,17 @@ class OrderContainer extends Component {
   };
 
   handleModifyBurgerItem = (itemType, itemKey) => {
-    console.log('modify');
+    const { order } = this.props;
+
+    this.setState(() => ({
+      steps: 0
+    }));
+
+    this.props.copyBurgerOrderIngredients(
+      order[itemType][itemKey].ingredients,
+      order[itemType][itemKey].quantity,
+      itemKey
+    );
   };
 
   handleReduceOrderItemQuantity = (
@@ -93,7 +104,6 @@ class OrderContainer extends Component {
   render() {
     const { classes, order, totalPrice, userId } = this.props;
     const { steps } = this.state;
-    console.log('order', order);
 
     return (
       <div className={classes.root}>
@@ -160,6 +170,7 @@ export default compose(
     removeItem,
     addOne,
     resetOrder,
-    subtractOne
+    subtractOne,
+    copyBurgerOrderIngredients
   })
 )(OrderContainer);

@@ -19,9 +19,10 @@ import axios from '../../axios-orders';
 import {
   fetchIngredients,
   addBurgerToOrder,
-  addOrderIngredients,
-  reduceOrderIngredients,
-  resetOrderIngredients
+  addBurgerOrderIngredients,
+  reduceBurgerOrderIngredients,
+  resetBurgerOrder,
+  removeItem
 } from '../../store/actions';
 import {
   orderObjToString,
@@ -42,8 +43,7 @@ const styles = theme => ({
 });
 
 const initState = {
-  ingredientsTotalPrice: 0,
-  quantity: 1
+  ingredientsTotalPrice: 0
 };
 
 class BuilderContainer extends Component {
@@ -55,18 +55,17 @@ class BuilderContainer extends Component {
   static getDerivedStateFromProps(props, state) {
     if (
       Object.keys(props.ingredientsControl).length > 0 &&
-      Object.keys(props.burgerOrder).length > 0
+      Object.keys(props.burgerOrderIngredients).length > 0
     ) {
-      const totalPrice = Object.keys(props.burgerOrder).reduce(
-        (total, current) => {
-          return (
-            total +
-            parseInt(props.burgerOrder[current], 10) *
-              parseFloat(props.ingredientsControl[current].unitPrice)
-          );
-        },
-        props.basePrice
-      );
+      const totalPrice = Object.keys(
+        props.burgerOrderIngredients
+      ).reduce((total, current) => {
+        return (
+          total +
+          parseInt(props.burgerOrderIngredients[current], 10) *
+            parseFloat(props.ingredientsControl[current].unitPrice)
+        );
+      }, props.basePrice);
 
       return {
         ...state,
@@ -77,17 +76,18 @@ class BuilderContainer extends Component {
   }
 
   componentDidMount() {
+    console.log('mounted');
     this.props.fetchIngredients();
   }
 
   handleAddIngredient = type => {
-    const { ingredientsControl, burgerOrder } = this.props;
+    const { ingredientsControl, burgerOrderIngredients } = this.props;
 
-    if (burgerOrder[type] === 2) {
+    if (burgerOrderIngredients[type] === 2) {
       return;
     }
 
-    this.props.addOrderIngredients(type);
+    this.props.addBurgerOrderIngredients(type);
     this.setState(prevState => ({
       ingredientsTotalPrice:
         prevState.ingredientsTotalPrice +
@@ -96,12 +96,12 @@ class BuilderContainer extends Component {
   };
 
   handleRemoveIngredient = type => {
-    const { ingredientsControl, burgerOrder } = this.props;
+    const { ingredientsControl, burgerOrderIngredients } = this.props;
 
-    if (burgerOrder[type] === 0) {
+    if (burgerOrderIngredients[type] === 0) {
       return;
     }
-    this.props.reduceOrderIngredients(type);
+    this.props.reduceBurgerOrderIngredients(type);
     this.setState(prevState => ({
       ingredientsTotalPrice:
         prevState.ingredientsTotalPrice -
@@ -109,22 +109,38 @@ class BuilderContainer extends Component {
     }));
   };
 
-  handleQuantityChange = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    const qty = e.currentTarget.value;
+  // handleQuantityChange = e => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   const qty = e.currentTarget.value;
 
-    this.setState(() => ({
-      quantity: parseInt(qty, 10)
-    }));
-  };
+  //   this.setState(() => ({
+  //     quantity: parseInt(qty, 10)
+  //   }));
+  // };
 
   handleAddToOrder = () => {
-    const { ingredientsTotalPrice, quantity } = this.state;
-    const { burgerOrder } = this.props;
+    const { ingredientsTotalPrice } = this.state;
+    const {
+      burgerOrderIngredients,
+      orderKeyToBeReplaced,
+      quantity
+    } = this.props;
 
-    const itemKey = orderObjToStringNoSpace(burgerOrder);
-    const str = `Burger with ${orderObjToString(burgerOrder)}`;
+    const itemKey = orderObjToStringNoSpace(burgerOrderIngredients);
+
+    // Check if it's edit, no change - do nothing
+    if (
+      orderKeyToBeReplaced !== '' &&
+      orderKeyToBeReplaced === itemKey
+    ) {
+      console.log('its same - do nothing');
+      return;
+    }
+
+    const str = `Burger with ${orderObjToString(
+      burgerOrderIngredients
+    )}`;
 
     const orderItem = {
       parentKey: '',
@@ -132,18 +148,22 @@ class BuilderContainer extends Component {
       item: str,
       priceToPay: parseFloat(ingredientsTotalPrice) * quantity,
       unitPrice: parseFloat(ingredientsTotalPrice),
-      ingredients: burgerOrder
+      ingredients: burgerOrderIngredients
     };
+
+    if (orderKeyToBeReplaced !== '') {
+      this.props.removeItem('burgers', orderKeyToBeReplaced);
+    }
     this.props.addBurgerToOrder('burgers', itemKey, orderItem);
+
     this.handleResetBuilder();
   };
 
   handleResetBuilder = () => {
-    this.props.resetOrderIngredients();
-    this.setState(() => ({
-      ingredientsTotalPrice: initState.ingredientsTotalPrice,
-      quantity: initState.quantity
-    }));
+    this.props.resetBurgerOrder();
+    // this.setState(() => ({
+    //   ingredientsTotalPrice: initState.ingredientsTotalPrice
+    // }));
   };
 
   render() {
@@ -153,12 +173,12 @@ class BuilderContainer extends Component {
       ingredientsControl,
       loading,
       success,
-      burgerOrder
+      burgerOrderIngredients
     } = this.props;
 
-    const { ingredientsTotalPrice, quantity } = this.state;
+    const { ingredientsTotalPrice } = this.state;
 
-    if (loading || !ingredientsControl || !burgerOrder)
+    if (loading || !ingredientsControl || !burgerOrderIngredients)
       return <Spinner />;
 
     if (!ingredientsControl && !success) {
@@ -168,37 +188,39 @@ class BuilderContainer extends Component {
     return (
       <Wrapper>
         <Paper className={classes.paper}>
-          <Burger orderIngredients={burgerOrder} />
+          <Burger orderIngredients={burgerOrderIngredients} />
           <BuildControls
             basePrice={basePrice}
-            orderIngredients={burgerOrder}
+            orderIngredients={burgerOrderIngredients}
             ingredientsControl={ingredientsControl}
-            quantity={quantity}
+            //quantity={quantity}
             ingredientsTotalPrice={ingredientsTotalPrice}
             handleAddIngredient={this.handleAddIngredient}
             handleRemoveIngredient={this.handleRemoveIngredient}
-            handleResetBuilder={this.handleResetBuilder}
+            // handleResetBuilder={this.handleResetBuilder}
             handleAddToOrder={this.handleAddToOrder}>
-            <FormControl variant="outlined">
-              <OutlinedInput
-                id="burger-quantity"
-                type="number"
-                value={quantity}
-                margin="none"
-                onChange={this.handleQuantityChange}
-                startAdornment={
-                  <InputAdornment position="start">
-                    <Typography variant="subtitle2">
-                      Quantity:{' '}
-                    </Typography>
-                  </InputAdornment>
-                }
-                inputProps={{
-                  className: classes.input,
-                  min: 0
-                }}
-              />
-            </FormControl>
+            {
+              // <FormControl variant="outlined">
+              //   <OutlinedInput
+              //     id="burger-quantity"
+              //     type="number"
+              //     value={quantity}
+              //     margin="none"
+              //     onChange={this.handleQuantityChange}
+              //     startAdornment={
+              //       <InputAdornment position="start">
+              //         <Typography variant="subtitle2">
+              //           Quantity:{' '}
+              //         </Typography>
+              //       </InputAdornment>
+              //     }
+              //     inputProps={{
+              //       className: classes.input,
+              //       min: 0
+              //     }}
+              //   />
+              // </FormControl>
+            }
           </BuildControls>
         </Paper>
       </Wrapper>
@@ -211,7 +233,9 @@ const mapStateToProps = ({ ingredients, burgerOrder }) => {
     basePrice: ingredients.basePrice,
     loading: ingredients.loading,
     success: ingredients.success,
-    burgerOrder
+    burgerOrderIngredients: burgerOrder.ingredients,
+    orderKeyToBeReplaced: burgerOrder.keyToBeReplaced,
+    quantity: burgerOrder.quantity
   };
 };
 
@@ -221,9 +245,10 @@ const enhance = compose(
   connect(mapStateToProps, {
     fetchIngredients,
     addBurgerToOrder,
-    addOrderIngredients,
-    reduceOrderIngredients,
-    resetOrderIngredients
+    addBurgerOrderIngredients,
+    reduceBurgerOrderIngredients,
+    resetBurgerOrder,
+    removeItem
   })
 );
 export default withErrorHandler(enhance(BuilderContainer), axios);

@@ -1,6 +1,6 @@
 import {
   ADD_BURGER,
-  UPDATE_DRINK_ORDER,
+  UPDATE_ORDER,
   RESET_DRINK_ORDER,
   REMOVE_ITEM,
   ADD_ONE,
@@ -20,8 +20,8 @@ export const addBurgerToOrder = (itemType, itemKey, orderObj) => ({
   orderObj
 });
 
-export const updateDrinkOrder = (itemType, itemKey, orderObj) => ({
-  type: UPDATE_DRINK_ORDER,
+export const updateOrder = (itemType, itemKey, orderObj) => ({
+  type: UPDATE_ORDER,
   itemType,
   itemKey,
   orderObj

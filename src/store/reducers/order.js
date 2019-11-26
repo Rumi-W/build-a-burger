@@ -1,6 +1,6 @@
 import {
   ADD_BURGER,
-  UPDATE_DRINK_ORDER,
+  UPDATE_ORDER,
   RESET_DRINK_ORDER,
   REMOVE_ITEM,
   ADD_ONE,
@@ -12,7 +12,7 @@ import {
 } from '../actions/actionTypes';
 import {
   addBurger,
-  updateDrinkOrder,
+  updateOrder,
   removeItem,
   addOne,
   subtractOne
@@ -34,8 +34,8 @@ export default (state = initState, action = {}) => {
     case ADD_BURGER:
       return addBurger(state, action);
 
-    case UPDATE_DRINK_ORDER:
-      return updateDrinkOrder(state, action);
+    case UPDATE_ORDER:
+      return updateOrder(state, action);
 
     case RESET_DRINK_ORDER:
       return { ...state, order: { ...state.order, beverages: {} } };

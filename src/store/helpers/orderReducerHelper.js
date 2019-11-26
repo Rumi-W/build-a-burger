@@ -37,12 +37,12 @@ export const addBurger = (state, action) => {
   };
 };
 
-export const updateDrinkOrder = (state, action) => {
+export const updateOrder = (state, action) => {
   const { itemType, itemKey, orderObj } = action;
   const { priceToPay, quantity } = orderObj;
 
   let orderToUpdate = { ...state.order };
-  let subOrderToUpdate = { ...orderToUpdate[itemType] }; // drink orders
+  let subOrderToUpdate = { ...orderToUpdate[itemType] }; // drinks vs. burgers
   const isItemExists = Object.prototype.hasOwnProperty.call(
     subOrderToUpdate,
     itemKey
