@@ -8,6 +8,7 @@ import BuilderContainer from '../BuilderContainer';
 import OrderControls from '../../components/Order/OrderControls';
 import OrderItems from '../../components/Order/OrderItems';
 import Beverages from '../Beverages';
+import Backdrop from '../../components/common/Backdrop';
 import {
   removeItem,
   addOne,
@@ -27,7 +28,8 @@ const styles = theme => ({
 
 class OrderContainer extends Component {
   state = {
-    steps: 0 // 0-burger, 1-drinks
+    steps: 0, // 0-burger, 1-drinks
+    showBackdrop: false
   };
 
   handleStepsChange = num => {
@@ -52,7 +54,8 @@ class OrderContainer extends Component {
     const { order } = this.props;
 
     this.setState(() => ({
-      steps: 0
+      steps: 0,
+      showBackdrop: true
     }));
 
     this.props.copyBurgerOrderIngredients(
@@ -62,11 +65,7 @@ class OrderContainer extends Component {
     );
   };
 
-  handleReduceOrderItemQuantity = (
-    itemType,
-    itemKey,
-    currentQuantity
-  ) => {
+  handleReduceOrderItemQuantity = (itemType, itemKey, currentQuantity) => {
     if (currentQuantity === 1) {
       this.props.removeItem(itemType, itemKey);
     } else {
@@ -83,16 +82,20 @@ class OrderContainer extends Component {
     }
   };
 
+  hideBackdrop = () => {
+    this.setState(() => ({
+      showBackdrop: false
+    }));
+  };
+
   getContent = () => {
     let content = null;
     switch (this.state.steps) {
       case 0:
-        content = <BuilderContainer />;
+        content = <BuilderContainer hideBackdrop={this.hideBackdrop} />;
         break;
       case 1:
-        content = (
-          <Beverages handleAddToOrder={this.handleAddToOrder} />
-        );
+        content = <Beverages handleAddToOrder={this.handleAddToOrder} />;
         break;
 
       default:
@@ -103,16 +106,12 @@ class OrderContainer extends Component {
 
   render() {
     const { classes, order, totalPrice, userId } = this.props;
-    const { steps } = this.state;
+    const { steps, showBackdrop } = this.state;
 
     return (
       <div className={classes.root}>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-          spacing={3}>
+        <Backdrop show={showBackdrop} />
+        <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
           <Grid item xs={12} sm={12} md={7}>
             <div>
               <OrderControls
@@ -126,12 +125,8 @@ class OrderContainer extends Component {
                   isEditable
                   totalPrice={totalPrice}
                   order={order}
-                  handleAddOrderItemQuantity={
-                    this.handleAddOrderItemQuantity
-                  }
-                  handleReduceOrderItemQuantity={
-                    this.handleReduceOrderItemQuantity
-                  }
+                  handleAddOrderItemQuantity={this.handleAddOrderItemQuantity}
+                  handleReduceOrderItemQuantity={this.handleReduceOrderItemQuantity}
                   handleRemoveOrderItem={this.handleRemoveOrderItem}
                   handleModifyBurgerItem={this.handleModifyBurgerItem}
                 />
@@ -144,7 +139,8 @@ class OrderContainer extends Component {
             sm={12}
             md={5}
             style={{
-              borderRadius: '4px'
+              borderRadius: '4px',
+              zIndex: '60'
             }}>
             {this.getContent()}
           </Grid>

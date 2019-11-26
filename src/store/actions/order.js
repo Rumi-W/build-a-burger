@@ -1,5 +1,6 @@
 import {
   ADD_BURGER,
+  REPLACE_BURGER,
   UPDATE_ORDER,
   RESET_DRINK_ORDER,
   REMOVE_ITEM,
@@ -12,6 +13,14 @@ import {
 } from './actionTypes';
 import { axiosConfig } from './config';
 import axios from '../../axios-orders';
+
+export const replaceBurgerOrder = (itemType, itemKey, orderObj, oldItemKey) => ({
+  type: REPLACE_BURGER,
+  itemType,
+  itemKey,
+  orderObj,
+  oldItemKey
+});
 
 export const addBurgerToOrder = (itemType, itemKey, orderObj) => ({
   type: ADD_BURGER,

@@ -3,13 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  Typography,
-  Paper,
-  FormControl,
-  OutlinedInput,
-  InputAdornment
-} from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import Burger from '../../components/Burger';
 import BuildControls from '../../components/BuildControls';
 import Spinner from '../../components/common/Spinner';
@@ -22,12 +16,10 @@ import {
   addBurgerOrderIngredients,
   reduceBurgerOrderIngredients,
   resetBurgerOrder,
-  removeItem
+  removeItem,
+  replaceBurgerOrder
 } from '../../store/actions';
-import {
-  orderObjToString,
-  orderObjToStringNoSpace
-} from '../../utilities/utilities';
+import { orderObjToString, orderObjToStringNoSpace } from '../../utilities/utilities';
 
 const styles = theme => ({
   paper: {
@@ -57,9 +49,7 @@ class BuilderContainer extends Component {
       Object.keys(props.ingredientsControl).length > 0 &&
       Object.keys(props.burgerOrderIngredients).length > 0
     ) {
-      const totalPrice = Object.keys(
-        props.burgerOrderIngredients
-      ).reduce((total, current) => {
+      const totalPrice = Object.keys(props.burgerOrderIngredients).reduce((total, current) => {
         return (
           total +
           parseInt(props.burgerOrderIngredients[current], 10) *
@@ -88,9 +78,7 @@ class BuilderContainer extends Component {
 
     this.props.addBurgerOrderIngredients(type);
     this.setState(prevState => ({
-      ingredientsTotalPrice:
-        prevState.ingredientsTotalPrice +
-        ingredientsControl[type].unitPrice
+      ingredientsTotalPrice: prevState.ingredientsTotalPrice + ingredientsControl[type].unitPrice
     }));
   };
 
@@ -102,36 +90,26 @@ class BuilderContainer extends Component {
     }
     this.props.reduceBurgerOrderIngredients(type);
     this.setState(prevState => ({
-      ingredientsTotalPrice:
-        prevState.ingredientsTotalPrice -
-        ingredientsControl[type].unitPrice
+      ingredientsTotalPrice: prevState.ingredientsTotalPrice - ingredientsControl[type].unitPrice
     }));
   };
 
   handleAddToOrder = () => {
     const { ingredientsTotalPrice } = this.state;
-    const {
-      burgerOrderIngredients,
-      orderKeyToBeReplaced,
-      quantity
-    } = this.props;
+    const { burgerOrderIngredients, orderKeyToBeReplaced, quantity } = this.props;
 
     const itemKey = orderObjToStringNoSpace(burgerOrderIngredients);
 
     // Check if it's edit, no change - do nothing
-    if (
-      orderKeyToBeReplaced !== '' &&
-      orderKeyToBeReplaced === itemKey
-    ) {
+    if (orderKeyToBeReplaced !== '' && orderKeyToBeReplaced === itemKey) {
+      this.props.hideBackdrop();
       return;
     }
 
-    const str = `Burger with ${orderObjToString(
-      burgerOrderIngredients
-    )}`;
+    const str = `Burger with ${orderObjToString(burgerOrderIngredients)}`;
 
     const orderItem = {
-      parentKey: '',
+      parentKey: 'burgers',
       quantity,
       item: str,
       priceToPay: parseFloat(ingredientsTotalPrice) * quantity,
@@ -140,9 +118,11 @@ class BuilderContainer extends Component {
     };
 
     if (orderKeyToBeReplaced !== '') {
-      this.props.removeItem('burgers', orderKeyToBeReplaced);
+      this.props.replaceBurgerOrder('burgers', itemKey, orderItem, orderKeyToBeReplaced);
+      this.props.hideBackdrop();
+    } else {
+      this.props.addBurgerToOrder('burgers', itemKey, orderItem);
     }
-    this.props.addBurgerToOrder('burgers', itemKey, orderItem);
 
     this.handleResetBuilder();
   };
@@ -163,8 +143,7 @@ class BuilderContainer extends Component {
 
     const { ingredientsTotalPrice } = this.state;
 
-    if (loading || !ingredientsControl || !burgerOrderIngredients)
-      return <Spinner />;
+    if (loading || !ingredientsControl || !burgerOrderIngredients) return <Spinner />;
 
     if (!ingredientsControl && !success) {
       return <p>Ingredients cannot be loaded.</p>;
@@ -209,7 +188,8 @@ const enhance = compose(
     addBurgerOrderIngredients,
     reduceBurgerOrderIngredients,
     resetBurgerOrder,
-    removeItem
+    removeItem,
+    replaceBurgerOrder
   })
 );
 export default withErrorHandler(enhance(BuilderContainer), axios);

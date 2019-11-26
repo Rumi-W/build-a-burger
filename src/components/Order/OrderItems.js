@@ -35,24 +35,14 @@ const OrderItems = ({ isEditable, order, totalPrice, ...rest }) => {
         orderCategory={key1}
         orderKey={key2}
         isItemEditable={isEditable && key1 === 'burgers'}
-        handleEditButtonClick={() =>
-          rest.handleModifyBurgerItem(key1, key2)
-        }>
+        handleEditButtonClick={() => rest.handleModifyBurgerItem(key1, key2)}>
         {isEditable ? (
           <QtyEditButtons
             isBurger={key1 === 'burgers'}
-            handleAddButtonClick={() =>
-              rest.handleAddOrderItemQuantity(key1, key2)
-            }
-            handleDeleteButtonClick={() =>
-              rest.handleRemoveOrderItem(key1, key2)
-            }
+            handleAddButtonClick={() => rest.handleAddOrderItemQuantity(key1, key2)}
+            handleDeleteButtonClick={() => rest.handleRemoveOrderItem(key1, key2)}
             handleReduceButtonClick={() =>
-              rest.handleReduceOrderItemQuantity(
-                key1,
-                key2,
-                order[key1][key2].quantity
-              )
+              rest.handleReduceOrderItemQuantity(key1, key2, order[key1][key2].quantity)
             }
           />
         ) : null}
@@ -70,13 +60,10 @@ const OrderItems = ({ isEditable, order, totalPrice, ...rest }) => {
       Object.keys(order).forEach((key1, i) => {
         //key1:burgers/beverages
         if (
-          Object.prototype.toString.call(order[key1]) ===
-            '[object Object]' &&
+          Object.prototype.toString.call(order[key1]) === '[object Object]' &&
           Object.keys(order[key1]).length > 0
         ) {
-          const item = Object.keys(order[key1]).map((key2, i2) =>
-            renderItem(key2, key1, i2)
-          );
+          const item = Object.keys(order[key1]).map((key2, i2) => renderItem(key2, key1, i2));
           contents = [...contents, ...item];
         }
       });

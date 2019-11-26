@@ -1,4 +1,5 @@
 import {
+  REPLACE_BURGER,
   ADD_BURGER,
   UPDATE_ORDER,
   RESET_DRINK_ORDER,
@@ -10,13 +11,7 @@ import {
   SUBMIT_ORDER_SUCCESS,
   SUBMIT_ORDER_FAIL
 } from '../actions/actionTypes';
-import {
-  addBurger,
-  updateOrder,
-  removeItem,
-  addOne,
-  subtractOne
-} from '../helpers/orderReducerHelper';
+import { addBurger, replaceBurger, updateOrder, removeItem, addOne, subtractOne } from '../helpers/orderReducerHelper';
 
 const initState = {
   order: {
@@ -33,6 +28,9 @@ export default (state = initState, action = {}) => {
   switch (action.type) {
     case ADD_BURGER:
       return addBurger(state, action);
+
+    case REPLACE_BURGER:
+      return replaceBurger(state, action);
 
     case UPDATE_ORDER:
       return updateOrder(state, action);

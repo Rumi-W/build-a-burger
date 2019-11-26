@@ -6,8 +6,8 @@ import Wrapper from '../../hoc/Wrapper';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minWidth: '40px',
-    minHeight: '40px',
+    minWidth: '36px',
+    minHeight: '36px',
     margin: '2px'
   },
   label: {

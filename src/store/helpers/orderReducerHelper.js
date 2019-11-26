@@ -6,10 +6,7 @@ export const addBurger = (state, action) => {
 
   let orderToUpdate = { ...state.order };
   let subOrderToUpdate = { ...orderToUpdate[itemType] }; // burgers
-  const isItemExists = Object.prototype.hasOwnProperty.call(
-    subOrderToUpdate,
-    itemKey
-  );
+  const isItemExists = Object.prototype.hasOwnProperty.call(subOrderToUpdate, itemKey);
 
   if (isItemExists) {
     subOrderToUpdate = {
@@ -37,16 +34,41 @@ export const addBurger = (state, action) => {
   };
 };
 
+export const replaceBurger = (state, action) => {
+  const { itemType, itemKey, orderObj, oldItemKey } = action;
+
+  let currentSubOrder = { ...state.order[itemType] };
+  let updatedSubOrder = {};
+  if (
+    Object.prototype.toString.call(currentSubOrder) === '[object Object]' &&
+    Object.keys(currentSubOrder).length > 0
+  ) {
+    Object.keys(currentSubOrder).forEach(key => {
+      if (key === oldItemKey) {
+        updatedSubOrder = { ...updatedSubOrder, [itemKey]: { ...orderObj } };
+      } else {
+        updatedSubOrder = { ...updatedSubOrder, [key]: currentSubOrder[key] };
+      }
+    });
+  }
+
+  const updatedOrder = { ...state.order, [itemType]: updatedSubOrder };
+  const updatedTotalPrice = calcTotalPrice(updatedOrder);
+
+  return {
+    ...state,
+    order: { ...updatedOrder },
+    totalPrice: updatedTotalPrice
+  };
+};
+
 export const updateOrder = (state, action) => {
   const { itemType, itemKey, orderObj } = action;
   const { priceToPay, quantity } = orderObj;
 
   let orderToUpdate = { ...state.order };
   let subOrderToUpdate = { ...orderToUpdate[itemType] }; // drinks vs. burgers
-  const isItemExists = Object.prototype.hasOwnProperty.call(
-    subOrderToUpdate,
-    itemKey
-  );
+  const isItemExists = Object.prototype.hasOwnProperty.call(subOrderToUpdate, itemKey);
 
   if (isItemExists) {
     // e.g. Small Soda became Qty = 0 --> delete
@@ -84,10 +106,7 @@ export const removeItem = (state, action) => {
   let orderToUpdate = { ...state.order };
   let subOrderToUpdate = { ...orderToUpdate[itemType] }; // drink orders
 
-  if (
-    subOrderToUpdate &&
-    Object.prototype.hasOwnProperty.call(subOrderToUpdate, itemKey)
-  ) {
+  if (subOrderToUpdate && Object.prototype.hasOwnProperty.call(subOrderToUpdate, itemKey)) {
     delete subOrderToUpdate[itemKey];
   }
 
@@ -106,14 +125,10 @@ export const addOne = (state, action) => {
   let orderToUpdate = { ...state.order };
   let subOrderToUpdate = { ...orderToUpdate[itemType] }; // drink orders
 
-  if (
-    subOrderToUpdate &&
-    Object.prototype.hasOwnProperty.call(subOrderToUpdate, itemKey)
-  ) {
+  if (subOrderToUpdate && Object.prototype.hasOwnProperty.call(subOrderToUpdate, itemKey)) {
     const newQty = subOrderToUpdate[itemKey].quantity + 1;
     subOrderToUpdate[itemKey].quantity = newQty;
-    subOrderToUpdate[itemKey].priceToPay =
-      newQty * subOrderToUpdate[itemKey].unitPrice;
+    subOrderToUpdate[itemKey].priceToPay = newQty * subOrderToUpdate[itemKey].unitPrice;
   }
   orderToUpdate = { ...orderToUpdate, [itemType]: subOrderToUpdate };
   const updatedTotalPrice = calcTotalPrice(orderToUpdate);
@@ -130,17 +145,13 @@ export const subtractOne = (state, action) => {
   let orderToUpdate = { ...state.order };
   let subOrderToUpdate = { ...orderToUpdate[itemType] }; // drink orders
 
-  if (
-    subOrderToUpdate &&
-    Object.prototype.hasOwnProperty.call(subOrderToUpdate, itemKey)
-  ) {
+  if (subOrderToUpdate && Object.prototype.hasOwnProperty.call(subOrderToUpdate, itemKey)) {
     if (subOrderToUpdate[itemKey].quantity === 0) {
       return { ...state };
     }
     const newQty = subOrderToUpdate[itemKey].quantity - 1;
     subOrderToUpdate[itemKey].quantity = newQty;
-    subOrderToUpdate[itemKey].priceToPay =
-      newQty * subOrderToUpdate[itemKey].unitPrice;
+    subOrderToUpdate[itemKey].priceToPay = newQty * subOrderToUpdate[itemKey].unitPrice;
   }
   orderToUpdate = { ...orderToUpdate, [itemType]: subOrderToUpdate };
   const updatedTotalPrice = calcTotalPrice(orderToUpdate);

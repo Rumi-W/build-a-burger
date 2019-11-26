@@ -46,17 +46,13 @@ const BuildControls = ({
 }) => {
   const classes = useStyles();
 
-  if (Object.keys(ingredientsControl).length === 0)
-    return <Spinner />;
+  if (Object.keys(ingredientsControl).length === 0) return <Spinner />;
 
   return (
     <Box className={classes.controlsContainer}>
       <div className={classes.info}>
         <InfoTwoToneIcon color="primary" fontSize="large" />
-        <Typography
-          variant="subtitle1"
-          display="inline"
-          style={{ color: '#0c80df', marginLeft: '2px' }}>
+        <Typography variant="subtitle1" display="inline" style={{ color: '#0c80df', marginLeft: '2px' }}>
           Adjust ingredients and click &#39;Select This Burger&#39;.
         </Typography>
       </div>
@@ -74,8 +70,7 @@ const BuildControls = ({
       ))}
 
       <Typography variant="subtitle1">
-        Unit Price: $
-        {parseFloat(parseFloat(ingredientsTotalPrice)).toFixed(2)}
+        Unit Price: ${parseFloat(parseFloat(ingredientsTotalPrice)).toFixed(2)}
       </Typography>
 
       <div className={classes.buttons}>

@@ -20,7 +20,7 @@ const DeleteButton = ({ handleDeleteButtonClick }) => {
           size="small"
           className={classes.iconBtn}
           onClick={handleDeleteButtonClick}>
-          <DeleteIcon fontSize="large" />
+          <DeleteIcon fontSize="default" />
         </IconButton>
       </Tooltip>
     </Wrapper>

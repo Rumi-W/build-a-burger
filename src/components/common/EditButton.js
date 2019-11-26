@@ -1,7 +1,7 @@
 import React from 'react';
-import { Tooltip, Button, IconButton } from '@material-ui/core';
+import { Tooltip, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@material-ui/icons/BorderColorOutlined';
 import Wrapper from '../../hoc/Wrapper';
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +21,7 @@ const EditButton = ({ handleEditButtonClick }) => {
           color="primary"
           className={classes.iconBtn}
           onClick={handleEditButtonClick}>
-          <EditIcon fontSize="large" />
+          <EditIcon fontSize="default" />
         </IconButton>
       </Tooltip>
     </Wrapper>
