@@ -30,13 +30,9 @@ const OrderControls = ({
   const classes = useStyles();
 
   const btnBurgerStyle =
-    steps === 0
-      ? { backgroundColor: '#c6e4fc' }
-      : { backgroundColor: '#f2f2f2' };
+    steps === 0 ? { backgroundColor: '#c6e4fc' } : { backgroundColor: '#f2f2f2' };
   const btnBeverageStyle =
-    steps === 1
-      ? { backgroundColor: '#c6e4fc' }
-      : { backgroundColor: '#f2f2f2' };
+    steps === 1 ? { backgroundColor: '#c6e4fc' } : { backgroundColor: '#f2f2f2' };
 
   return (
     <div className={classes.controlWrapper}>
