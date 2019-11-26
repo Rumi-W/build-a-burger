@@ -23,7 +23,6 @@ const AddButton = ({ handleAddButtonClick }) => {
         <Button
           aria-label="add"
           size="small"
-          //color="primary"
           variant="outlined"
           onClick={handleAddButtonClick}
           classes={{ root: classes.root, label: classes.label }}>

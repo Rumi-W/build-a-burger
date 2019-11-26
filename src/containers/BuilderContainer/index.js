@@ -76,7 +76,6 @@ class BuilderContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('mounted');
     this.props.fetchIngredients();
   }
 
@@ -109,16 +108,6 @@ class BuilderContainer extends Component {
     }));
   };
 
-  // handleQuantityChange = e => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   const qty = e.currentTarget.value;
-
-  //   this.setState(() => ({
-  //     quantity: parseInt(qty, 10)
-  //   }));
-  // };
-
   handleAddToOrder = () => {
     const { ingredientsTotalPrice } = this.state;
     const {
@@ -134,7 +123,6 @@ class BuilderContainer extends Component {
       orderKeyToBeReplaced !== '' &&
       orderKeyToBeReplaced === itemKey
     ) {
-      console.log('its same - do nothing');
       return;
     }
 
@@ -161,9 +149,6 @@ class BuilderContainer extends Component {
 
   handleResetBuilder = () => {
     this.props.resetBurgerOrder();
-    // this.setState(() => ({
-    //   ingredientsTotalPrice: initState.ingredientsTotalPrice
-    // }));
   };
 
   render() {
@@ -193,35 +178,11 @@ class BuilderContainer extends Component {
             basePrice={basePrice}
             orderIngredients={burgerOrderIngredients}
             ingredientsControl={ingredientsControl}
-            //quantity={quantity}
             ingredientsTotalPrice={ingredientsTotalPrice}
             handleAddIngredient={this.handleAddIngredient}
             handleRemoveIngredient={this.handleRemoveIngredient}
-            // handleResetBuilder={this.handleResetBuilder}
-            handleAddToOrder={this.handleAddToOrder}>
-            {
-              // <FormControl variant="outlined">
-              //   <OutlinedInput
-              //     id="burger-quantity"
-              //     type="number"
-              //     value={quantity}
-              //     margin="none"
-              //     onChange={this.handleQuantityChange}
-              //     startAdornment={
-              //       <InputAdornment position="start">
-              //         <Typography variant="subtitle2">
-              //           Quantity:{' '}
-              //         </Typography>
-              //       </InputAdornment>
-              //     }
-              //     inputProps={{
-              //       className: classes.input,
-              //       min: 0
-              //     }}
-              //   />
-              // </FormControl>
-            }
-          </BuildControls>
+            handleAddToOrder={this.handleAddToOrder}
+          />
         </Paper>
       </Wrapper>
     );

@@ -18,7 +18,6 @@ const DeleteButton = ({ handleDeleteButtonClick }) => {
         <IconButton
           aria-label="delete"
           size="small"
-          //color="primary"
           className={classes.iconBtn}
           onClick={handleDeleteButtonClick}>
           <DeleteIcon fontSize="large" />

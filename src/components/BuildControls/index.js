@@ -39,13 +39,10 @@ const BuildControls = ({
   basePrice,
   orderIngredients,
   ingredientsControl,
-  //quantity,
   ingredientsTotalPrice,
   handleAddIngredient,
   handleRemoveIngredient,
   handleAddToOrder
-  //handleResetBuilder,
-  //children
 }) => {
   const classes = useStyles();
 
@@ -63,9 +60,7 @@ const BuildControls = ({
           Adjust ingredients and click &#39;Select This Burger&#39;.
         </Typography>
       </div>
-      {
-        // <div style={{ marginBottom: '12px' }}>{children}</div>
-      }
+
       {Object.keys(ingredientsControl).map((key, i) => (
         <BuildControl
           key={i}
@@ -93,15 +88,6 @@ const BuildControls = ({
           onClick={handleAddToOrder}>
           Select This Burger
         </Button>
-        {
-          // <Button
-          //   disabled={ingredientsTotalPrice <= basePrice}
-          //   size="medium"
-          //   variant="contained"
-          //   onClick={handleResetBuilder}>
-          //   Reset Selection
-          // </Button>
-        }
       </div>
     </Box>
   );
