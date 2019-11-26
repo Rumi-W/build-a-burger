@@ -4,13 +4,15 @@ import order from './order';
 import drinkMenu from './drinks';
 import auth from './auth';
 import orderHistory from './orderHistory';
+import burgerOrder from './burgerOrder';
 
 const combinedReducers = combineReducers({
   ingredients,
   order,
   drinkMenu,
   auth,
-  orderHistory
+  orderHistory,
+  burgerOrder
 });
 
 export default combinedReducers;

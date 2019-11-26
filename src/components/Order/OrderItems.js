@@ -24,14 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const OrderItems = ({
-  includeAddRemoveButton,
-  order,
-  totalPrice,
-  handleAddOrderItemQuantity,
-  handleReduceOrderItemQuantity,
-  handleRemoveOrderItem
-}) => {
+const OrderItems = ({ isEditable, order, totalPrice, ...rest }) => {
   const classes = useStyles();
 
   const renderItem = (key2, key1, i2) => {
@@ -41,20 +34,24 @@ const OrderItems = ({
         orders={order[key1]}
         orderCategory={key1}
         orderKey={key2}>
-        {includeAddRemoveButton ? (
+        {isEditable ? (
           <QtyEditButtons
+            isBurger={key1 === 'burgers'}
             handleAddButtonClick={() =>
-              handleAddOrderItemQuantity(key1, key2)
+              rest.handleAddOrderItemQuantity(key1, key2)
             }
             handleDeleteButtonClick={() =>
-              handleRemoveOrderItem(key1, key2)
+              rest.handleRemoveOrderItem(key1, key2)
             }
             handleReduceButtonClick={() =>
-              handleReduceOrderItemQuantity(
+              rest.handleReduceOrderItemQuantity(
                 key1,
                 key2,
                 order[key1][key2].quantity
               )
+            }
+            handleEditButtonClick={() =>
+              rest.handleModifyBurgerItem(key1, key2)
             }
           />
         ) : null}

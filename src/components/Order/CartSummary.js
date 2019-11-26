@@ -6,7 +6,7 @@ const CartSummary = ({ order, totalPrice, children }) => {
   return (
     <Wrapper>
       <OrderItems
-        includeAddRemoveButton={false}
+        isEditable={false}
         totalPrice={totalPrice}
         order={order}
       />

@@ -18,7 +18,10 @@ import withErrorHandler from '../../hoc/withErrorHandler';
 import axios from '../../axios-orders';
 import {
   fetchIngredients,
-  addBurgerToOrder
+  addBurgerToOrder,
+  addOrderIngredients,
+  reduceOrderIngredients,
+  resetOrderIngredients
 } from '../../store/actions';
 import {
   orderObjToString,
@@ -39,15 +42,7 @@ const styles = theme => ({
 });
 
 const initState = {
-  orderIngredients: {
-    bacon: 0,
-    tomato: 1,
-    cheese: 1,
-    lettuce: 1,
-    meat: 1
-  }, // order
-  basePrice: 3.0,
-  ingredientsTotalPrice: 3.8,
+  ingredientsTotalPrice: 0,
   quantity: 1
 };
 
@@ -57,44 +52,61 @@ class BuilderContainer extends Component {
     this.state = { ...initState };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (
+      Object.keys(props.ingredientsControl).length > 0 &&
+      Object.keys(props.burgerOrder).length > 0
+    ) {
+      const totalPrice = Object.keys(props.burgerOrder).reduce(
+        (total, current) => {
+          return (
+            total +
+            parseInt(props.burgerOrder[current], 10) *
+              parseFloat(props.ingredientsControl[current].unitPrice)
+          );
+        },
+        props.basePrice
+      );
+
+      return {
+        ...state,
+        ingredientsTotalPrice: totalPrice
+      };
+    }
+    return { ...state };
+  }
+
   componentDidMount() {
     this.props.fetchIngredients();
   }
 
   handleAddIngredient = type => {
-    if (this.state.orderIngredients[type] === 2) {
+    const { ingredientsControl, burgerOrder } = this.props;
+
+    if (burgerOrder[type] === 2) {
       return;
     }
 
+    this.props.addOrderIngredients(type);
     this.setState(prevState => ({
-      orderIngredients: {
-        ...prevState.orderIngredients,
-        [type]: prevState.orderIngredients[type] + 1
-      },
       ingredientsTotalPrice:
         prevState.ingredientsTotalPrice +
-        this.props.ingredientsControl[type].unitPrice
+        ingredientsControl[type].unitPrice
     }));
   };
 
   handleRemoveIngredient = type => {
-    if (this.state.orderIngredients[type] === 0) {
+    const { ingredientsControl, burgerOrder } = this.props;
+
+    if (burgerOrder[type] === 0) {
       return;
     }
-    this.setState(
-      prevState => ({
-        orderIngredients: {
-          ...prevState.orderIngredients,
-          [type]: prevState.orderIngredients[type] - 1
-        },
-        ingredientsTotalPrice:
-          prevState.ingredientsTotalPrice -
-          this.props.ingredientsControl[type].unitPrice
-      }),
-      () => {
-        // console.log('here', this.state);
-      }
-    );
+    this.props.reduceOrderIngredients(type);
+    this.setState(prevState => ({
+      ingredientsTotalPrice:
+        prevState.ingredientsTotalPrice -
+        ingredientsControl[type].unitPrice
+    }));
   };
 
   handleQuantityChange = e => {
@@ -108,30 +120,27 @@ class BuilderContainer extends Component {
   };
 
   handleAddToOrder = () => {
-    const {
-      ingredientsTotalPrice,
-      orderIngredients,
-      quantity
-    } = this.state;
+    const { ingredientsTotalPrice, quantity } = this.state;
+    const { burgerOrder } = this.props;
 
-    const itemKey = orderObjToStringNoSpace(orderIngredients);
-    const str = `Burger with ${orderObjToString(orderIngredients)}`;
+    const itemKey = orderObjToStringNoSpace(burgerOrder);
+    const str = `Burger with ${orderObjToString(burgerOrder)}`;
 
-    const burgerOrder = {
+    const orderItem = {
       parentKey: '',
       quantity,
       item: str,
       priceToPay: parseFloat(ingredientsTotalPrice) * quantity,
       unitPrice: parseFloat(ingredientsTotalPrice),
-      ingredients: orderIngredients
+      ingredients: burgerOrder
     };
-    this.props.addBurgerToOrder('burgers', itemKey, burgerOrder);
+    this.props.addBurgerToOrder('burgers', itemKey, orderItem);
     this.handleResetBuilder();
   };
 
   handleResetBuilder = () => {
+    this.props.resetOrderIngredients();
     this.setState(() => ({
-      orderIngredients: initState.orderIngredients,
       ingredientsTotalPrice: initState.ingredientsTotalPrice,
       quantity: initState.quantity
     }));
@@ -139,36 +148,30 @@ class BuilderContainer extends Component {
 
   render() {
     const {
+      basePrice,
       classes,
       ingredientsControl,
       loading,
-      success
+      success,
+      burgerOrder
     } = this.props;
 
-    const {
-      orderIngredients,
-      basePrice,
-      ingredientsTotalPrice,
-      quantity
-    } = this.state;
+    const { ingredientsTotalPrice, quantity } = this.state;
 
-    if (loading) {
+    if (loading || !ingredientsControl || !burgerOrder)
       return <Spinner />;
-    }
 
-    if (!success) {
+    if (!ingredientsControl && !success) {
       return <p>Ingredients cannot be loaded.</p>;
     }
-
-    if (!orderIngredients) return <Spinner />;
 
     return (
       <Wrapper>
         <Paper className={classes.paper}>
-          <Burger orderIngredients={orderIngredients} />
+          <Burger orderIngredients={burgerOrder} />
           <BuildControls
             basePrice={basePrice}
-            orderIngredients={orderIngredients}
+            orderIngredients={burgerOrder}
             ingredientsControl={ingredientsControl}
             quantity={quantity}
             ingredientsTotalPrice={ingredientsTotalPrice}
@@ -202,11 +205,13 @@ class BuilderContainer extends Component {
     );
   }
 }
-const mapStateToProps = ({ ingredients }) => {
+const mapStateToProps = ({ ingredients, burgerOrder }) => {
   return {
     ingredientsControl: ingredients.ingredients,
+    basePrice: ingredients.basePrice,
     loading: ingredients.loading,
-    success: ingredients.success
+    success: ingredients.success,
+    burgerOrder
   };
 };
 
@@ -215,7 +220,10 @@ const enhance = compose(
   withStyles(styles),
   connect(mapStateToProps, {
     fetchIngredients,
-    addBurgerToOrder
+    addBurgerToOrder,
+    addOrderIngredients,
+    reduceOrderIngredients,
+    resetOrderIngredients
   })
 );
 export default withErrorHandler(enhance(BuilderContainer), axios);

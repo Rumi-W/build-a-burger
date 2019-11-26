@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DeleteButton from '../common/DeleteButton';
 import AddButton from '../common/AddButton';
 import SubtractButton from '../common/SubtractButton';
+import EditButton from '../common/EditButton';
 
 const useStyles = makeStyles(theme => ({
   buttons: {
@@ -13,7 +14,8 @@ const useStyles = makeStyles(theme => ({
 const QtyEditButtons = ({
   handleAddButtonClick,
   handleDeleteButtonClick,
-  handleReduceButtonClick
+  handleReduceButtonClick,
+  handleEditButtonClick
 }) => {
   const classes = useStyles();
 
@@ -26,6 +28,7 @@ const QtyEditButtons = ({
       <DeleteButton
         handleDeleteButtonClick={handleDeleteButtonClick}
       />
+      <EditButton handleEditButtonClick={handleEditButtonClick} />
     </div>
   );
 };

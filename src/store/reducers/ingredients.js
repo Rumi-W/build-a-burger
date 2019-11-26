@@ -5,7 +5,8 @@ import {
 } from '../actions/actionTypes';
 
 const initState = {
-  ingredients: [],
+  ingredients: {},
+  basePrice: 3.0,
   loading: false,
   success: false
 };

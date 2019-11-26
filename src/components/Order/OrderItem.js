@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid } from '@material-ui/core';
+import EditButton from '../common/EditButton';
 
 const useStyles = makeStyles(theme => ({
   iconBtn: {
@@ -14,7 +15,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const OrderItem = ({ orders, orderKey, orderCategory, children }) => {
+const OrderItem = ({
+  isEditable,
+  orders,
+  orderKey,
+  orderCategory,
+  children
+}) => {
   const classes = useStyles();
 
   return (
@@ -27,6 +34,7 @@ const OrderItem = ({ orders, orderKey, orderCategory, children }) => {
         <Typography display="inline" variant="subtitle1">
           {orders[orderKey].item}{' '}
         </Typography>
+        {isEditable ? <EditButton /> : null}
         <div className={classes.quantity}>
           <Typography display="inline" variant="subtitle1">
             Quantity: {orders[orderKey].quantity}

@@ -47,6 +47,10 @@ class OrderContainer extends Component {
     this.props.addOne(itemType, itemKey);
   };
 
+  handleModifyBurgerItem = (itemType, itemKey) => {
+    console.log('modify');
+  };
+
   handleReduceOrderItemQuantity = (
     itemType,
     itemKey,
@@ -89,6 +93,7 @@ class OrderContainer extends Component {
   render() {
     const { classes, order, totalPrice, userId } = this.props;
     const { steps } = this.state;
+    console.log('order', order);
 
     return (
       <div className={classes.root}>
@@ -108,7 +113,7 @@ class OrderContainer extends Component {
                 orderEmpty={totalPrice === 0}
                 steps={steps}>
                 <OrderItems
-                  includeAddRemoveButton
+                  isEditable
                   totalPrice={totalPrice}
                   order={order}
                   handleAddOrderItemQuantity={
@@ -118,6 +123,7 @@ class OrderContainer extends Component {
                     this.handleReduceOrderItemQuantity
                   }
                   handleRemoveOrderItem={this.handleRemoveOrderItem}
+                  handleModifyBurgerItem={this.handleModifyBurgerItem}
                 />
               </OrderControls>
             </div>
