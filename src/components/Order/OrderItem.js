@@ -28,19 +28,12 @@ const OrderItem = ({
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      direction="row"
-      alignItems="flex-start"
-      className={classes.wrapper}
-      spacing={2}>
+    <Grid container direction="row" alignItems="flex-start" className={classes.wrapper} spacing={2}>
       <Grid item xs={11}>
         <Typography display="inline" variant="subtitle1">
           {orders[orderKey].item}{' '}
         </Typography>
-        {isItemEditable ? (
-          <EditButton handleEditButtonClick={handleEditButtonClick} />
-        ) : null}
+        {isItemEditable ? <EditButton handleEditButtonClick={handleEditButtonClick} /> : null}
         <div className={classes.quantity}>
           <Typography display="inline" variant="subtitle1">
             Quantity: {orders[orderKey].quantity}
