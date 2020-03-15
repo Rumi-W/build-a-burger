@@ -30,12 +30,9 @@ class Contact extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    const customerInfo = Object.keys(customer).reduce(
-      (total, current) => {
-        return { ...total, [current]: customer[current].value };
-      },
-      {}
-    );
+    const customerInfo = Object.keys(customer).reduce((total, current) => {
+      return { ...total, [current]: customer[current].value };
+    }, {});
 
     const customerOrder = {
       userId,
@@ -59,9 +56,7 @@ class Contact extends Component {
     toBeUpdatedCustomer[key].value = inputValue;
     toBeUpdatedCustomer[key].isValid = isValid;
 
-    const isFormCurrentlyValid = checkForInvalidField(
-      toBeUpdatedCustomer
-    );
+    const isFormCurrentlyValid = checkForInvalidField(toBeUpdatedCustomer);
 
     this.setState(() => ({
       customer: toBeUpdatedCustomer,
@@ -125,18 +120,10 @@ class Contact extends Component {
       modalContents = <Spinner />;
     } else if (success) {
       modalTitle = 'Success';
-      modalContents = (
-        <Typography align="center">
-          Going to Payment Info Page...
-        </Typography>
-      );
+      modalContents = <Typography align="center">Going to Payment Info Page...</Typography>;
     } else if (!success) {
       modalTitle = 'Error';
-      modalContents = (
-        <Typography align="center">
-          Please call customer care.
-        </Typography>
-      );
+      modalContents = <Typography align="center">Please call customer care.</Typography>;
     }
 
     return (
@@ -145,9 +132,7 @@ class Contact extends Component {
           Enter your contact information
         </Typography>
         <form className={classes.form}>
-          {Object.keys(customer).map((key, i) =>
-            this.renderInputField(key, i, customer[key])
-          )}
+          {Object.keys(customer).map((key, i) => this.renderInputField(key, i, customer[key]))}
           <Button
             type="submit"
             color="primary"

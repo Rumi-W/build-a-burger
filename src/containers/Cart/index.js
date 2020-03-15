@@ -38,14 +38,7 @@ class Cart extends Component {
   };
 
   render() {
-    const {
-      classes,
-      match,
-      order,
-      totalPrice,
-      loading,
-      success
-    } = this.props;
+    const { classes, match, order, totalPrice, loading, success } = this.props;
 
     let summary;
     if (
@@ -66,21 +59,14 @@ class Cart extends Component {
                 onClick={this.handleContinue}>
                 Continue
               </Button>
-              <Button
-                variant="contained"
-                onClick={this.handleCancelCheckout}>
+              <Button variant="contained" onClick={this.handleCancelCheckout}>
                 Cancel
               </Button>
             </div>
           </CartSummary>
           <div className={classes.contact}>
             <Route path={`${match.path}/contact`}>
-              <Contact
-                order={order}
-                totalPrice={totalPrice}
-                loading={loading}
-                success={success}
-              />
+              <Contact order={order} totalPrice={totalPrice} loading={loading} success={success} />
             </Route>
           </div>
         </div>
@@ -98,8 +84,4 @@ const mapStateToProps = ({ order }) => {
     loading: order.loading
   };
 };
-export default compose(
-  withRouter,
-  withStyles(styles),
-  connect(mapStateToProps)
-)(Cart);
+export default compose(withRouter, withStyles(styles), connect(mapStateToProps))(Cart);

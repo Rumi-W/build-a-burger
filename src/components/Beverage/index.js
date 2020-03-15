@@ -19,14 +19,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center'
   }
 }));
-const Beverage = ({
-  type,
-  label,
-  sizesObj,
-  handleOrderChange,
-  drinkOrder,
-  children
-}) => {
+const Beverage = ({ type, label, sizesObj, handleOrderChange, drinkOrder, children }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -68,9 +61,7 @@ const Beverage = ({
         id={`${type}-panel-summary`}>
         <Typography className={classes.heading}>{label}</Typography>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.detailsPanel}>
-        {children}
-      </ExpansionPanelDetails>
+      <ExpansionPanelDetails className={classes.detailsPanel}>{children}</ExpansionPanelDetails>
     </ExpansionPanel>
   );
 };

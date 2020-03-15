@@ -51,10 +51,7 @@ const BeverageSize = ({
     let isSelected = false;
     let qty = 0;
 
-    if (
-      drinkOrder &&
-      Object.prototype.hasOwnProperty.call(drinkOrder, itemKey)
-    ) {
+    if (drinkOrder && Object.prototype.hasOwnProperty.call(drinkOrder, itemKey)) {
       isSelected = true;
       qty = drinkOrder[itemKey].quantity;
     }
@@ -131,9 +128,7 @@ const BeverageSize = ({
             onChange={handleQuantityChange}
             startAdornment={
               <InputAdornment position="start">
-                <Typography variant="subtitle2">
-                  Quantity:{' '}
-                </Typography>
+                <Typography variant="subtitle2">Quantity: </Typography>
               </InputAdornment>
             }
             inputProps={{

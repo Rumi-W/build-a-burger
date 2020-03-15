@@ -11,7 +11,14 @@ import {
   SUBMIT_ORDER_SUCCESS,
   SUBMIT_ORDER_FAIL
 } from '../actions/actionTypes';
-import { addBurger, replaceBurger, updateOrder, removeItem, addOne, subtractOne } from '../helpers/orderReducerHelper';
+import {
+  addBurger,
+  replaceBurger,
+  updateOrder,
+  removeItem,
+  addOne,
+  subtractOne
+} from '../helpers/orderReducerHelper';
 
 const initState = {
   order: {

@@ -41,10 +41,7 @@ class OrderHistory extends Component {
     if (orderItem && orderItem.order) {
       if (Object.keys(orderItem.order).length > 0) {
         Object.keys(orderItem.order).forEach((key1, i) => {
-          if (
-            orderItem.order[key1] &&
-            Object.keys(orderItem.order[key1]).length > 0
-          ) {
+          if (orderItem.order[key1] && Object.keys(orderItem.order[key1]).length > 0) {
             Object.keys(orderItem.order[key1]).forEach((key2, i2) => {
               const block = (
                 <div key={`${orderItem.id}-${key2}`}>
@@ -95,36 +92,25 @@ class OrderHistory extends Component {
               <Typography variant="subtitle1">Amount</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <Typography variant="subtitle1">
-                (Quantity) Item
-              </Typography>
+              <Typography variant="subtitle1">(Quantity) Item</Typography>
             </Grid>
           </Grid>
         </Paper>
         <Paper className={classes.content}>
           {orders.map((orderItem, index) => (
-            <Grid
-              key={`grid-${index}`}
-              container
-              className={classes.gridContainer}>
+            <Grid key={`grid-${index}`} container className={classes.gridContainer}>
               <Grid item xs={12} sm={2} md={2}>
                 <Typography variant="subtitle2">
                   {orderItem.orderDateTime
-                    ? moment(orderItem.orderDateTime).format(
-                        'MM-DD-YYYY'
-                      )
+                    ? moment(orderItem.orderDateTime).format('MM-DD-YYYY')
                     : null}
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={2} md={2}>
-                <Typography variant="subtitle2">
-                  {orderItem.customer.firstName}
-                </Typography>
+                <Typography variant="subtitle2">{orderItem.customer.firstName}</Typography>
               </Grid>
               <Grid item xs={12} sm={2} md={2}>
-                <Typography variant="subtitle2">
-                  ${orderItem.totalPrice.toFixed(2)}
-                </Typography>
+                <Typography variant="subtitle2">${orderItem.totalPrice.toFixed(2)}</Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
                 {this.renderOrders(orderItem)}
