@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'nowrap',
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'scroll'
+    overflow: 'auto'
   },
   burger: {
     marginTop: 'auto',
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     maxWidth: '300px',
-    overflow: 'scroll'
+    overflow: 'auto'
   }
 }));
 
